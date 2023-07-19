@@ -46,13 +46,9 @@ import { deleteCabin } from "../../services/apiCabins";
 import { toast } from "react-hot-toast";
 import CreateCabinForm from "./CreateCabinForm";
 
-const CabinRow = ({ cabin }) => {
+const CabinRow = ({ cabin , key }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
-
-  useEffect(() => {
-    setShowEditForm(false);
-  }, [cabin]);
 
   const {
     name,
@@ -62,7 +58,6 @@ const CabinRow = ({ cabin }) => {
     image_url,
     id: cabinId,
   } = cabin;
-
 
   return (
     <>
@@ -85,9 +80,8 @@ const CabinRow = ({ cabin }) => {
           </button>
         </div>
       </TableRow>
-      {showEditForm && (
-        <CreateCabinForm key={showEditForm} cabinToEdit={cabin} />
-      )}
+      {showEditForm && <CreateCabinForm cabinToEdit={cabin} />}
+      <button onClick={() => setShowEditForm(false)}> CLose Edit modal </button>
     </>
   );
 };

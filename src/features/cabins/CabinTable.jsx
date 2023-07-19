@@ -24,12 +24,13 @@ const TableHeader = styled.header`
   padding: 1.6rem 2.4rem;
 `;
 
-import React from "react";
+import React, { useEffect } from "react";
 import CabinRow from "./CabinRow";
 import useCabins from "./useCabins";
 
 const CabinTable = () => {
   const { isLoading, cabins } = useCabins();
+
 
   if (isLoading) return <Spinner />;
 
