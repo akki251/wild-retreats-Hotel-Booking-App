@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
+import useDeleteCabin from "./useDeleteCabin";
 const TableRow = styled.div`
   display: grid;
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -47,12 +48,12 @@ import CreateCabinForm from "./CreateCabinForm";
 
 const CabinRow = ({ cabin }) => {
   const [showEditForm, setShowEditForm] = useState(false);
+  const { isDeleting, deleteCabin } = useDeleteCabin();
 
   useEffect(() => {
     setShowEditForm(false);
   }, [cabin]);
 
-  const queryClient = useQueryClient();
   const {
     name,
     max_capacity,
@@ -62,18 +63,6 @@ const CabinRow = ({ cabin }) => {
     id: cabinId,
   } = cabin;
 
-  const { isLoading: isDeleting, mutate } = useMutation({
-    mutationFn: deleteCabin,
-
-    // this would be called after deletion success
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      toast.success("Cabins successfully deleted");
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
 
   return (
     <>
@@ -82,12 +71,16 @@ const CabinRow = ({ cabin }) => {
         <Cabin>{name}</Cabin>
         <div>Fits up to {max_capacity} guests</div>
         <Price> {formatCurrency(regular_price)} </Price>
-        <Discount> {formatCurrency(discount)} </Discount>
+        {discount ? (
+          <Discount> {formatCurrency(discount)} </Discount>
+        ) : (
+          <span>&mdash;</span>
+        )}
         <div>
           <button onClick={() => setShowEditForm((isShown) => !isShown)}>
             Edit
           </button>
-          <button disabled={isDeleting} onClick={() => mutate(cabinId)}>
+          <button disabled={isDeleting} onClick={() => deleteCabin(cabinId)}>
             Delete
           </button>
         </div>
