@@ -48,6 +48,10 @@ import CreateCabinForm from "./CreateCabinForm";
 const CabinRow = ({ cabin }) => {
   const [showEditForm, setShowEditForm] = useState(false);
 
+  useEffect(() => {
+    setShowEditForm(false);
+  }, [cabin]);
+
   const queryClient = useQueryClient();
   const {
     name,
@@ -89,7 +93,7 @@ const CabinRow = ({ cabin }) => {
         </div>
       </TableRow>
       {showEditForm && (
-        <CreateCabinForm cabinToEdit={cabin} setShowForm={setShowEditForm} />
+        <CreateCabinForm key={showEditForm} cabinToEdit={cabin} />
       )}
     </>
   );

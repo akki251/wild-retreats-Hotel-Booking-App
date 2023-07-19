@@ -100,8 +100,6 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
           id: editId,
         })
       : createCabin({ ...data, image_url: image });
-
-    setShowForm(false);
   };
 
   const onError = (error) => {
