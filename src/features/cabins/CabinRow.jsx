@@ -45,7 +45,7 @@ import React, { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
 import useCreateCabin from "./useCreateCabin";
 
-const CabinRow = ({ cabin, key }) => {
+const CabinRow = ({ cabin }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
 
