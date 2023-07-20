@@ -2,12 +2,12 @@ import supabase from "./supabase";
 import { supabaseUrl } from "./supabase";
 export async function getCabins() {
   const { data, error } = await supabase.from("cabins").select("*");
-  
+
   if (error) {
     console.log(error);
     throw Error("Cabins could not be loaded");
   }
-  
+
   console.log("cabins fetched again");
   return data;
 }
@@ -55,6 +55,8 @@ export async function createEditCabin(newCabin, id) {
     console.log(error);
     throw Error("Cabin could not be added");
   }
+  
+  if (hasImagePath) return data;
 
   // if no error then upload the image
   const { error: storageError } = await supabase.storage

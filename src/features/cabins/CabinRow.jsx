@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
 import useDeleteCabin from "./useDeleteCabin";
+import { HiTrash, HiPencil, HiDocumentDuplicate } from "react-icons/hi";
 const TableRow = styled.div`
   display: grid;
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -40,15 +41,15 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
-import React, { useEffect, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { deleteCabin } from "../../services/apiCabins";
-import { toast } from "react-hot-toast";
+import React, { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
+import useCreateCabin from "./useCreateCabin";
 
-const CabinRow = ({ cabin , key }) => {
+const CabinRow = ({ cabin, key }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
+
+  const { isCreating, createCabin } = useCreateCabin();
 
   const {
     name,
@@ -58,6 +59,15 @@ const CabinRow = ({ cabin , key }) => {
     image_url,
     id: cabinId,
   } = cabin;
+  function handleDuplicateCabin() {
+    createCabin({
+      name: `Copy of ${name}`,
+      max_capacity,
+      regular_price,
+      discount,
+      image_url,
+    });
+  }
 
   return (
     <>
@@ -73,15 +83,17 @@ const CabinRow = ({ cabin , key }) => {
         )}
         <div>
           <button onClick={() => setShowEditForm((isShown) => !isShown)}>
-            Edit
+            <HiPencil />
           </button>
           <button disabled={isDeleting} onClick={() => deleteCabin(cabinId)}>
-            Delete
+            <HiTrash />
+          </button>
+          <button disabled={isCreating} onClick={handleDuplicateCabin}>
+            <HiDocumentDuplicate />
           </button>
         </div>
       </TableRow>
       {showEditForm && <CreateCabinForm cabinToEdit={cabin} />}
-      <button onClick={() => setShowEditForm(false)}> CLose Edit modal </button>
     </>
   );
 };
