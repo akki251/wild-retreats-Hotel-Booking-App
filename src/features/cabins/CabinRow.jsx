@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 import { formatCurrency } from "../../utils/helpers";
 import useDeleteCabin from "./useDeleteCabin";
 import { HiTrash, HiPencil, HiDocumentDuplicate } from "react-icons/hi";
@@ -44,6 +45,7 @@ const Discount = styled.div`
 import React, { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
 import useCreateCabin from "./useCreateCabin";
+import Modal from "../../ui/Modal";
 
 const CabinRow = ({ cabin }) => {
   const [showEditForm, setShowEditForm] = useState(false);
@@ -81,19 +83,35 @@ const CabinRow = ({ cabin }) => {
         ) : (
           <span>&mdash;</span>
         )}
+
         <div>
-          <button onClick={() => setShowEditForm((isShown) => !isShown)}>
-            <HiPencil />
-          </button>
-          <button disabled={isDeleting} onClick={() => deleteCabin(cabinId)}>
-            <HiTrash />
-          </button>
-          <button disabled={isCreating} onClick={handleDuplicateCabin}>
-            <HiDocumentDuplicate />
-          </button>
+          <Modal>
+            <Modal.Open opens="edit-cabin">
+              <button>
+                <HiPencil />
+              </button>
+            </Modal.Open>
+            <Modal.Window name="edit-cabin">
+              <CreateCabinForm cabinToEdit={cabin} />
+            </Modal.Window>
+            <Modal.Open opens="delete-cabin">
+              <button>
+                <HiTrash />
+              </button>
+            </Modal.Open>
+            <Modal.Window name="delete-cabin">
+              <ConfirmDelete
+                resourceName="cabins"
+                disabled={isDeleting}
+                onConfirm={() => deleteCabin(cabinId)}
+              />
+            </Modal.Window>
+            <button disabled={isCreating} onClick={handleDuplicateCabin}>
+              <HiDocumentDuplicate />
+            </button>
+          </Modal>
         </div>
       </TableRow>
-      {showEditForm && <CreateCabinForm cabinToEdit={cabin} />}
     </>
   );
 };
