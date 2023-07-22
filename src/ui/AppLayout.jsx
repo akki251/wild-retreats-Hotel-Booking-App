@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
 import Header from "./Header";
-import { styled } from "styled-components";
+import styled from "styled-components";
 
 const Main = styled.main`
   background-color: var(--color-grey-50);

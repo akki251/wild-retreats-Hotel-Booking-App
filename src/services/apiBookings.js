@@ -8,8 +8,14 @@ export async function getBookings({ filter, sortBy }) {
       "id , created_at , start_date , end_date , num_nights  , num_guests , status , total_price , cabins(name), guests(full_name, email)"
     );
 
-  if (filter !== null) {
+  if (filter) {
     query = query.eq(filter.field, filter.value);
+  }
+
+  if (sortBy) {
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === "asc",
+    });
   }
 
   const { data, error } = await query;

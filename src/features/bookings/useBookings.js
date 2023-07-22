@@ -13,14 +13,19 @@ export default function useBookings() {
       ? null
       : { field: "status", value: filterValue };
 
+  // SORT
+  const sortByRow = searchParams.get("sortBy") || "start_date-desc";
+  const [field, direction] = sortByRow.split("-");
+  const sortBy = { field, direction };
+
   const {
     isLoading,
     data: bookings,
     error,
   } = useQuery({
     // this is dependency array for queryFn
-    queryKey: ["bookings", filter],
-    queryFn: () => getBookingsApi({ filter }),
+    queryKey: ["bookings", filter, sortBy],
+    queryFn: () => getBookingsApi({ filter, sortBy }),
   });
 
   return { isLoading, bookings };
