@@ -18,15 +18,18 @@ export default function useBookings() {
   const [field, direction] = sortByRow.split("-");
   const sortBy = { field, direction };
 
-  const {
-    isLoading,
-    data: bookings,
-    error,
-  } = useQuery({
+  // PAGE
+
+  const page = !searchParams.get("page") ? 1 : +searchParams.get("page");
+
+  const { isLoading, data, error } = useQuery({
     // this is dependency array for queryFn
-    queryKey: ["bookings", filter, sortBy],
-    queryFn: () => getBookingsApi({ filter, sortBy }),
+    queryKey: ["bookings", filter, sortBy, page],
+    queryFn: () => getBookingsApi({ filter, sortBy, page }),
   });
 
-  return { isLoading, bookings };
+  const bookings = data?.data;
+  const count = data?.count;
+
+  return { isLoading, bookings, count };
 }
