@@ -22,7 +22,6 @@ const FilterButton = styled.button`
       color: var(--color-brand-50);
     `}
 
-  border-radius: var(--border-radius-sm);
   font-weight: 500;
   font-size: 1.4rem;
   /* To give the same height as select */
@@ -33,6 +32,7 @@ const FilterButton = styled.button`
     background-color: var(--color-brand-600);
     color: var(--color-brand-50);
   }
+  border-radius: var(--border-radius-sm);
 `;
 
 export const Filter = ({ filterField, options }) => {

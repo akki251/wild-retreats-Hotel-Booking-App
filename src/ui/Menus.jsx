@@ -76,7 +76,7 @@ const Menus = ({ children }) => {
 
   return (
     <MenusContext.Provider
-      value={{ close, open, openMenuId, open, setPosition, position }}
+      value={{ close, open, openMenuId, setPosition, position }}
     >
       {children}
     </MenusContext.Provider>
