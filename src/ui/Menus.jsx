@@ -1,6 +1,10 @@
+import { createContext, useContext, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { HiEllipsisVertical } from "react-icons/hi2";
 import styled from "styled-components";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
-const StyledMenu = styled.div`
+const Menu = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -60,3 +64,88 @@ const StyledButton = styled.button`
     transition: all 0.3s;
   }
 `;
+
+const MenusContext = createContext();
+
+const Menus = ({ children }) => {
+  const [openMenuId, setOpenMenuId] = useState("");
+  const [position, setPosition] = useState(null);
+
+  const close = () => setOpenMenuId("");
+  const open = setOpenMenuId;
+
+  return (
+    <MenusContext.Provider
+      value={{ close, open, openMenuId, open, setPosition, position }}
+    >
+      {children}
+    </MenusContext.Provider>
+  );
+};
+
+function Toggle({ id }) {
+  const { open, close, openMenuId, setPosition } = useContext(MenusContext);
+
+  // NOTE:  handle scroll when menu opens
+  // useEffect(() => {
+  //   function handleScroll() {
+  //     if (openMenuId) {
+  //       close();
+  //       document.removeEventListener("wheel", handleScroll);
+  //     }
+  //   }
+  //   if (openMenuId) document.addEventListener("wheel", handleScroll);
+
+  //   return () => document.removeEventListener("wheel", handleScroll);
+  // }, [openMenuId]);
+
+  const handleClick = (event) => {
+    const rect = event.target.closest("button").getBoundingClientRect();
+    setPosition({
+      x: window.innerWidth - rect.width - rect.x,
+      y: rect.y + rect.height + 8,
+    });
+    openMenuId === "" || openMenuId != id ? open(id) : close();
+  };
+  return (
+    <StyledToggle onClick={handleClick}>
+      <HiEllipsisVertical />
+    </StyledToggle>
+  );
+}
+
+function List({ id, children }) {
+  const { close } = useContext(MenusContext);
+  const ref = useOutsideClick(close);
+  const { openMenuId, position } = useContext(MenusContext);
+  if (id !== openMenuId) return null;
+
+  return createPortal(
+    <StyledList ref={ref} position={position}>
+      {children}
+    </StyledList>,
+    document.body
+  );
+}
+
+function Button({ children, icon, onClick }) {
+  const { close } = useContext(MenusContext);
+  const handleClick = () => {
+    onClick?.();
+    close();
+  };
+  return (
+    <li>
+      <StyledButton onClick={handleClick}>
+        {icon} <span>{children}</span>
+      </StyledButton>
+    </li>
+  );
+}
+
+Menus.Menu = Menu;
+Menus.Toggle = Toggle;
+Menus.List = List;
+Menus.Button = Button;
+
+export default Menus;
