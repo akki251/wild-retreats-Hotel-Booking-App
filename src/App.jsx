@@ -17,6 +17,7 @@ import AppLayout from "./ui/AppLayout.jsx";
 import { Toaster } from "react-hot-toast";
 import { StyleSheetManager } from "styled-components";
 import Booking from "./pages/Booking.jsx";
+import CheckIn from "./pages/CheckIn.jsx";
 
 // setting up react query
 const queryClient = new QueryClient({
@@ -39,6 +40,7 @@ const App = () => {
             <Route index element={<Navigate replace to="/dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="bookings/:bookingId" element={<Booking />} />
+            <Route path="checkin/:bookingId" element={<CheckIn />} />
             <Route path="bookings" element={<Bookings />} />
             <Route path="cabins" element={<Cabins />} />
             <Route path="users" element={<Users />} />
