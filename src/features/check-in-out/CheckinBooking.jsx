@@ -9,7 +9,8 @@ import ButtonText from "../../ui/ButtonText";
 import CheckBox from "../../ui/Checkbox";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import useBooking from "../bookings/useBooking";
-import { useNavigate } from "react-router-dom";
+import useSettings from "../settings/useSettings";
+
 import Spinner from "../../ui/Spinner";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -31,14 +32,15 @@ const StyledDiv = styled.div`
 function CheckinBooking() {
   const [confirmPaid, setConfirmPaid] = useState(false);
   const { booking, isLoading } = useBooking();
-
+  const [addBreakfast, setAddBreakfast] = useState(false);
+  const { settings, isLoading: isSettingsLoading } = useSettings();
   useEffect(() => {
     setConfirmPaid(booking?.is_paid ?? false);
   }, [booking]);
   const moveBack = useMoveBack();
 
   const { checkIn, isCheckingIn } = useCheckIn();
-  if (isLoading) return <Spinner />;
+  if (isLoading || isSettingsLoading) return <Spinner />;
 
   const {
     id: bookingId,
@@ -51,8 +53,21 @@ function CheckinBooking() {
 
   function handleCheckin() {
     if (!confirmPaid) return;
-    checkIn(bookingId);
+    if (addBreakfast) {
+      checkIn({
+        bookingId,
+        breakfast: {
+          has_breakfast: true,
+          extras_price: Math.ceil(optionalBreakFastPrice),
+          total_price: Math.ceil(total_price + optionalBreakFastPrice),
+        },
+      });
+    } else {
+      checkIn({ bookingId, breakfast: {} });
+    }
   }
+  const optionalBreakFastPrice =
+    settings.breakfast_price * num_nights * num_guests;
 
   return (
     <StyledDiv>
@@ -62,6 +77,22 @@ function CheckinBooking() {
       </Row>
 
       <BookingDataBox booking={booking} />
+
+      {!has_breakfast && (
+        <Box>
+          <CheckBox
+            checked={addBreakfast}
+            onChange={() => {
+              setAddBreakfast((add) => !add);
+              setConfirmPaid(false);
+            }}
+            id="breakfast"
+          >
+            I Want to add breakfast for {formatCurrency(optionalBreakFastPrice)}
+            price
+          </CheckBox>
+        </Box>
+      )}
 
       <Box>
         <CheckBox
