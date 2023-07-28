@@ -14,10 +14,9 @@ const FullPage = styled.div`
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
   const { user, isLoading, isAuthenticated } = useUser();
-
   useEffect(() => {
-    if (!isAuthenticated && !isLoading) navigate("/login");
-  }, [isAuthenticated, navigate, isLoading]);
+    if (!isLoading && !isAuthenticated) navigate("/login");
+  }, [isAuthenticated, isLoading, navigate]);
 
   if (isLoading)
     return (
@@ -26,7 +25,7 @@ const ProtectedRoute = ({ children }) => {
       </FullPage>
     );
 
-  return isAuthenticated && children;
+  return children;
 };
 
 export default ProtectedRoute;
