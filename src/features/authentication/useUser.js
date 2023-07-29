@@ -6,6 +6,7 @@ export default function useUser() {
     queryKey: ["user"],
     queryFn: getCurrentUser,
   });
+
   return {
     user,
     isLoading,
