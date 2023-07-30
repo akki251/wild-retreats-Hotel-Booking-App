@@ -22,7 +22,7 @@ const StyledSalesChart = styled(DashboardBox)`
   }
 `;
 
-// FAKE DATA FORMAT FOR RECHARTS  
+// FAKE DATA FORMAT FOR RECHARTS
 // const fakeData = [
 //   { label: "Jan 09", totalSales: 480, extrasSales: 20 },
 //   { label: "Jan 10", totalSales: 580, extrasSales: 100 },
@@ -64,8 +64,8 @@ const SalesChart = ({ bookings, numDays }) => {
     end: new Date(),
   });
 
-  // The code generates a new array "data" by mapping over each date in "allDates". 
-  // It creates objects with "label" and "totalSales" properties. The properties are calculated by filtering and 
+  // The code generates a new array "data" by mapping over each date in "allDates".
+  // It creates objects with "label" and "totalSales" properties. The properties are calculated by filtering and
   // summing values from the "bookings" array based on matching dates.
   const data = allDates.map((date) => {
     return {
@@ -78,7 +78,6 @@ const SalesChart = ({ bookings, numDays }) => {
         .reduce((accum, curr) => accum + curr.extras_price, 0),
     };
   });
-
 
   const colors = isDarkMode
     ? {
@@ -96,8 +95,11 @@ const SalesChart = ({ bookings, numDays }) => {
 
   return (
     <StyledSalesChart>
-      <Heading as="h2">Sales</Heading>
-      <ResponsiveContainer height={200} width="100%">
+      <Heading as="h2">
+        Sales from {format(allDates.at(0), "MMM dd yyyy")} &mdash;{" "}
+        {format(allDates.at(-1), "MMM dd yyyy")}
+      </Heading>
+      <ResponsiveContainer height={300} width="100%">
         <AreaChart data={data}>
           <XAxis
             dataKey="label"
