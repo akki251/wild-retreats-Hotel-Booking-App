@@ -4,4 +4,7 @@ import eslint from "eslint-plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), eslint],
+  // optimizeDeps: {
+  //   exclude: ["js-big-decimal"],
+  // },
 });
