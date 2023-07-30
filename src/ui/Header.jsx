@@ -18,6 +18,7 @@ const Header = () => {
     <StyledHeader>
       <UserAvatar />
       <HeaderMenu />
+        
     </StyledHeader>
   );
 };
