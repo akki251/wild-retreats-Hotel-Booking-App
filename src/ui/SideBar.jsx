@@ -20,7 +20,6 @@ const SideBar = () => {
       <Logo />
       <MainNav />
 
-      <Uploader />
     </StyledSidebar>
   );
 };

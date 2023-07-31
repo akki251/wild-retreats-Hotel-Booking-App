@@ -5,7 +5,13 @@ import { useEffect } from "react";
 const DarkModeContext = createContext();
 
 function DarkModeProvider({ children }) {
-  const [isDarkMode, setIsDarkMode] = useLocalStorageState(false, "isDarkMode");
+  const isUserDarkMode = window.matchMedia(
+    "(prefers-color-scheme: dark)"
+  ).matches;
+  const [isDarkMode, setIsDarkMode] = useLocalStorageState(
+    isUserDarkMode ,
+    "isDarkMode"
+  );
 
   function toggleDarkMode() {
     setIsDarkMode((isDark) => !isDark);
