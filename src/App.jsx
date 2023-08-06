@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import GlobalStyles from "./styles/GlobalStyles.js";
 import ProtectedRoute from "./ui/ProtectedRoute.jsx";
@@ -37,6 +37,7 @@ import AppLayout from "./ui/AppLayout.jsx";
 import { Toaster } from "react-hot-toast";
 import { DarkModeProvider } from "./context/DarkModeContext.jsx";
 import Spinner from "./ui/Spinner.jsx";
+import secureLocalStorage from "react-secure-storage";
 
 // setting up react query
 const queryClient = new QueryClient({

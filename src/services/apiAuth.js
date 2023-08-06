@@ -1,3 +1,4 @@
+import secureLocalStorage from "react-secure-storage";
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function login({ email, password }) {
@@ -9,6 +10,9 @@ export async function login({ email, password }) {
   if (error) {
     throw new Error(error.message);
   }
+
+  const { data: userData } = await supabase.auth.getUser();
+  secureLocalStorage.setItem("login", userData.user);
 
   return data;
 }
@@ -38,14 +42,23 @@ export async function getCurrentUser() {
   const { data, error } = await supabase.auth.getUser();
 
   if (error) throw new Error(error.message);
-  return data?.user;
+
+  if (data?.user) {
+    const getStoredUser = secureLocalStorage.getItem("login");
+    return JSON.stringify(data?.user) === JSON.stringify(getStoredUser)
+      ? data?.user
+      : { isHacked: true };
+  }
 }
 
 export async function logOut() {
   const { error } = await supabase.auth.signOut();
+
   if (error) {
     throw new Error(error.message);
   }
+
+  secureLocalStorage.clear();
 }
 
 export async function updateCurrentUser({ password, fullName, avatar }) {

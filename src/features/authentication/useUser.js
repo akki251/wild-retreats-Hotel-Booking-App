@@ -7,7 +7,9 @@ export default function useUser() {
     queryFn: getCurrentUser,
   });
 
+  const isHacked = user?.isHacked;
   return {
+    isHacked,
     user,
     isLoading,
     isAuthenticated: user?.role === "authenticated",
