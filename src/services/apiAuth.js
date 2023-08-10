@@ -1,5 +1,6 @@
 import secureLocalStorage from "react-secure-storage";
 import supabase, { supabaseUrl } from "./supabase";
+import { isEqual } from "lodash";
 
 export async function login({ email, password }) {
   let { data, error } = await supabase.auth.signInWithPassword({
@@ -45,9 +46,7 @@ export async function getCurrentUser() {
 
   if (data?.user) {
     const getStoredUser = secureLocalStorage.getItem("login");
-    return JSON.stringify(data?.user) === JSON.stringify(getStoredUser)
-      ? data?.user
-      : { isHacked: true };
+    return isEqual(data?.user, getStoredUser) ? data?.user : { isHacked: true };
   }
 }
 

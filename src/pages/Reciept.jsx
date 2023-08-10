@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 
 // Create Document Component
 const DOC = () => (
-  <Document>
+  <Document title="Sample PDF">
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
         <Text>Section #1</Text>
@@ -41,11 +41,16 @@ const DOC = () => (
 );
 
 const PDF = () => (
-  <PDFDownloadLink document={<DOC />} fileName="sample.pdf">
-    {({ blob, url, loading, error }) =>
-      loading ? "Loading document..." : "Download now!"
-    }
-  </PDFDownloadLink>
+  <>
+    <PDFDownloadLink document={<DOC />} fileName="sample.pdf">
+      {({ blob, url, loading, error }) =>
+        loading ? "Loading document..." : "Download now!"
+      }
+    </PDFDownloadLink>
+    <PDFViewer showToolbar height={300}>
+    <DOC />
+    </PDFViewer>
+  </>
 );
 
 export default PDF;
