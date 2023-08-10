@@ -14,7 +14,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 //   Settings,
 //   Users,
 // } from "./pages";
-import { Dashboard } from "./pages";
+import { Dashboard, PDF } from "./pages";
 import styled from "styled-components";
 const Bookings = lazy(() => import("./pages/Bookings.jsx"));
 const Account = lazy(() => import("./pages/Account.jsx"));
@@ -37,7 +37,6 @@ import AppLayout from "./ui/AppLayout.jsx";
 import { Toaster } from "react-hot-toast";
 import { DarkModeProvider } from "./context/DarkModeContext.jsx";
 import Spinner from "./ui/Spinner.jsx";
-import secureLocalStorage from "react-secure-storage";
 
 // setting up react query
 const queryClient = new QueryClient({
@@ -79,6 +78,7 @@ const App = () => {
                 <Route path="cabins" element={<Cabins />} />
                 <Route path="users" element={<Users />} />
                 <Route path="settings" element={<Settings />} />
+                <Route path="pdf" element={<PDF />} />
                 <Route path="account" element={<Account />} />
               </Route>
               <Route path="login" element={<Login />} />

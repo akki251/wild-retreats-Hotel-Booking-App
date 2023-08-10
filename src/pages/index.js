@@ -6,6 +6,7 @@ import Login from "./Login";
 import PageNotFound from "./PageNotFound";
 import Settings from "./Settings";
 import Users from "./Users";
+import PDF from "./Reciept";
 
 export {
   Account,
@@ -16,4 +17,5 @@ export {
   PageNotFound,
   Settings,
   Users,
+  PDF,
 };
