@@ -48,7 +48,7 @@ const PDF = () => (
       }
     </PDFDownloadLink>
     <PDFViewer showToolbar height={300}>
-    <DOC />
+      <DOC />
     </PDFViewer>
   </>
 );

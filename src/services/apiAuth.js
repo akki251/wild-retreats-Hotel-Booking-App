@@ -44,8 +44,13 @@ export async function getCurrentUser() {
 
   if (error) throw new Error(error.message);
 
+  const getStoredUser = secureLocalStorage.getItem("login");
+  console.group();
+  console.log({ secureData: getStoredUser });
   if (data?.user) {
-    const getStoredUser = secureLocalStorage.getItem("login");
+    console.log({ user: data?.user });
+    console.log(isEqual(data?.user, getStoredUser));
+    console.groupEnd();
     return isEqual(data?.user, getStoredUser) ? data?.user : { isHacked: true };
   }
 }
