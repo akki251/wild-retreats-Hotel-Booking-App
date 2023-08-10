@@ -1,4 +1,5 @@
 import React from "react";
+import { Fade } from "react-awesome-reveal";
 import styled from "styled-components";
 
 const StyledFormRow = styled.div`
@@ -42,7 +43,11 @@ const FormRow = ({ label, error, children }) => {
     <StyledFormRow>
       {label && <Label htmlFor={children?.props?.id}>{label}</Label>}
       {children}
-      {error && <Error>{error}</Error>}
+      {error && (
+        <Fade direction="down" damping={0.2}>
+          <Error>{error}</Error>
+        </Fade>
+      )}
     </StyledFormRow>
   );
 };
