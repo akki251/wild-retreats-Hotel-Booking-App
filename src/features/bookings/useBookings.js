@@ -2,8 +2,18 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getBookings as getBookingsApi } from "../../services/apiBookings";
 import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "../../ui/Pagination";
+import supabase from "../../services/supabase";
+import { useState } from "react";
 
 export default function useBookings() {
+  const [liveChanged, setLiveChanged] = useState();
+
+  supabase
+    .channel("any")
+    .on("postgres_changes", { event: "*", schema: "*" }, (payload) => {
+      setLiveChanged(payload);
+    })
+    .subscribe();
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
 
@@ -26,7 +36,7 @@ export default function useBookings() {
 
   const { isLoading, data, error } = useQuery({
     // this is dependency array for queryFn
-    queryKey: ["bookings", filter, sortBy, page],
+    queryKey: ["bookings", filter, sortBy, page, liveChanged],
     queryFn: () => getBookingsApi({ filter, sortBy, page }),
   });
 

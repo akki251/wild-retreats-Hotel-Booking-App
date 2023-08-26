@@ -5,10 +5,12 @@ import Empty from "../../ui/Empty";
 import useBookings from "./useBookings";
 import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
+import supabase from "../../services/supabase";
+
 function BookingTable() {
   const { bookings, isLoading, count } = useBookings();
-
   if (isLoading) return <Spinner />;
+
 
   if (!bookings.length) return <Empty resource="bookings" />;
 
