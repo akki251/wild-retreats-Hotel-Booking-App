@@ -13,7 +13,6 @@
     "__dirname": true
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
     "@react-pdf/renderer": "^3.1.12",
     "@supabase/supabase-js": "^2.26.0",
     "@tanstack/react-query": "^4.29.25",
