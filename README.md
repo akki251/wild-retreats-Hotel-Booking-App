@@ -30,6 +30,10 @@ To run this project locally, follow these steps:
 
 "Wild Retreats" offers a wide range of features, including:
 
+### Styling
+- Styled components
+- Dark and Light mode
+
 ### Cabins Management
 - Browse available cabins
 - Create new cabins
