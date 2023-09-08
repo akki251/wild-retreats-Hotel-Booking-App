@@ -9,8 +9,6 @@ This repository contains the code for "Wild Retreats," a full-stack React projec
 - [Getting Started](#getting-started)
 - [Features](#features)
 - [Libraries Used](#libraries-used)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
