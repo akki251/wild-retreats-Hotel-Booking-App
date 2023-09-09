@@ -9,6 +9,7 @@ This repository contains the code for "Wild Retreats," a full-stack React projec
 - [Getting Started](#getting-started)
 - [Features](#features)
 - [Libraries Used](#libraries-used)
+- [Screenshots](https://github.com/akki251/wild-retreats-Hotel-Booking-App/edit/main/README.md#Screenshots)
 
 ## Introduction
 
@@ -71,5 +72,38 @@ The project leverages several libraries to achieve its functionality, including:
 - [React Hook Form](https://react-hook-form.com/) - A library for managing form state and validation.
 - [Supabase](https://supabase.io/) - An open-source alternative to Firebase for building backend applications.
 - [Recharts](https://recharts.org/) - A charting library for React.
+
+## Screenshots
+
+- Login Page
+
+![Login Page](https://github.com/akki251/wild-retreats-Hotel-Booking-App/blob/main/Screenshots/screencapture-wild-retreats-vercel-app-login-2023-09-08-22_27_35.png)
+
+
+- Dashboard-Dark
+
+![Dashboard Page](https://github.com/akki251/wild-retreats-Hotel-Booking-App/blob/main/Screenshots/screencapture-wild-retreats-vercel-app-dashboard-2023-09-08-22_27_54.png)
+
+
+- Dashboard-Light
+
+![Dashboard Page](https://github.com/akki251/wild-retreats-Hotel-Booking-App/blob/main/Screenshots/screencapture-wild-retreats-vercel-app-dashboard-2023-09-08-22_29_46.png)
+
+
+- Bookings Page
+
+![Bookings Page](https://github.com/akki251/wild-retreats-Hotel-Booking-App/blob/main/Screenshots/screencapture-wild-retreats-vercel-app-bookings-2023-09-08-22_28_10.png)
+
+
+- Cabins Page
+
+![Cabins Page](https://github.com/akki251/wild-retreats-Hotel-Booking-App/blob/main/Screenshots/screencapture-wild-retreats-vercel-app-cabins-2023-09-08-22_29_02.png)
+
+- User Profile Page
+
+![User Profile Page](https://github.com/akki251/wild-retreats-Hotel-Booking-App/blob/main/Screenshots/screencapture-wild-retreats-vercel-app-account-2023-09-08-22_29_31.png)
+
+
+
 
 **Happy coding!**
