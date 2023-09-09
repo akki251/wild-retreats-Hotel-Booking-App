@@ -9,7 +9,7 @@ This repository contains the code for "Wild Retreats," a full-stack React projec
 - [Getting Started](#getting-started)
 - [Features](#features)
 - [Libraries Used](#libraries-used)
-- [Screenshots](https://github.com/akki251/wild-retreats-Hotel-Booking-App/edit/main/README.md#Screenshots)
+- [Screenshots](https://github.com/akki251/wild-retreats-Hotel-Booking-App#Screenshots)
 
 ## Introduction
 
